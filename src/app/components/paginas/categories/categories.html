@@ -1,0 +1,41 @@
+<div class="categorias">
+  <div class="categorias__container">
+    <div class="categorias__header">
+      <h1>Gestión de Categorías</h1>
+    </div>
+    
+    <div class="categorias__table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (category of categories; track $index) {
+          <tr>
+            <td >{{ category.id }}</td>
+            <td routerLink="/categories-edit/{{ category.id }}">{{ category.name }}</td>
+            <td>{{ category.description }}</td>
+            <td class="categorias__actions">
+              <button class="categorias__btn categorias__btn--delete" (click)="removeCategory(category.id)"><img src="/img/trash.png" alt="Eliminar"></button>
+            </td>
+          </tr>
+          }
+          @empty {
+          <tr>
+            <td colspan="4" class="categorias__empty">
+              No hay categorías disponibles
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
