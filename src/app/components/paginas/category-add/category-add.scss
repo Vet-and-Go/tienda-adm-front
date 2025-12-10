@@ -1,4 +1,4 @@
-.category-edit {
+.category-add {
   padding: 32px;
   min-height: calc(100vh - 80px);
 
@@ -23,14 +23,6 @@
     color: var(--mlt-sys-color-white-9);
     margin: 0;
     font-family: var(--mlt-sys-font-family-title);
-  }
-
-  &__loading {
-    text-align: center;
-    padding: 48px;
-    color: var(--mlt-sys-color-alternative-5);
-    font-size: 18px;
-    font-weight: 500;
   }
 
   &__form {
@@ -116,7 +108,7 @@
     }
 
     &--save {
-      background-color: var(--mlt-sys-color-button-secundary-3);
+      background-color: var(--mlt-sys-color-button-secundary-2);
       color: white;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 

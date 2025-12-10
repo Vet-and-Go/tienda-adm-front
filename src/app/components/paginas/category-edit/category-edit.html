@@ -1,7 +1,7 @@
 <div class="category-edit">
   <div class="category-edit__container">
     <div class="category-edit__header">
-      <h1>Editar Categoría</h1>
+      <h1 class="category-edit__title">Editar Categoría</h1>
     </div>
 
     @if (isLoading) {
@@ -11,21 +11,23 @@
     } @else {
       <form class="category-edit__form" (ngSubmit)="saveCategory()">
         <div class="category-edit__field">
-          <label for="name">Nombre</label>
+          <label for="name" class="category-edit__label">Nombre</label>
           <input 
             type="text" 
             id="name" 
             name="name" 
+            class="category-edit__input"
             [(ngModel)]="category.name" 
             required
           />
         </div>
 
         <div class="category-edit__field">
-          <label for="description">Descripción</label>
+          <label for="description" class="category-edit__label">Descripción</label>
           <textarea 
             id="description" 
             name="description" 
+            class="category-edit__textarea"
             [(ngModel)]="category.description" 
             rows="4"
             required
