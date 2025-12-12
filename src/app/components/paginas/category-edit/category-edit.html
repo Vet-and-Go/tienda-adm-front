@@ -1,0 +1,48 @@
+<div class="category-edit">
+  <div class="category-edit__container">
+    <div class="category-edit__header">
+      <h1 class="category-edit__title">Editar Categoría</h1>
+    </div>
+
+    @if (isLoading) {
+      <div class="category-edit__loading">
+        Cargando...
+      </div>
+    } @else {
+      <form class="category-edit__form" (ngSubmit)="saveCategory()">
+        <div class="category-edit__field">
+          <label for="name" class="category-edit__label">Nombre</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            class="category-edit__input"
+            [(ngModel)]="category.name" 
+            required
+          />
+        </div>
+
+        <div class="category-edit__field">
+          <label for="description" class="category-edit__label">Descripción</label>
+          <textarea 
+            id="description" 
+            name="description" 
+            class="category-edit__textarea"
+            [(ngModel)]="category.description" 
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="category-edit__actions">
+          <button type="button" class="category-edit__btn category-edit__btn--cancel" (click)="cancel()">
+            Cancelar
+          </button>
+          <button type="submit" class="category-edit__btn category-edit__btn--save">
+            Guardar
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>
