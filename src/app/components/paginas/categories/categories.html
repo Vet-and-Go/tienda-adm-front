@@ -11,9 +11,8 @@
       <table class="categorias__table-wrapper">
         <thead class="categorias__table-head">
           <tr class="categorias__row">
-            <th class="categorias__table-header">ID</th>
-            <th class="categorias__table-header">Nombre</th>
-            <th class="categorias__table-header">Descripción</th>
+            <th class="categorias__table-header categorias__table-header--id">ID</th>
+            <th class="categorias__table-header categorias__table-header--name">Nombre</th>
             <th class="categorias__table-header--actions">Acciones</th>
           </tr>
         </thead>
@@ -22,10 +21,8 @@
           <tr class="categorias__row">
             <td class="categorias__cell">{{ category.id }}</td>
             <td class="categorias__name" routerLink="/categories-edit/{{ category.id }}">{{ category.name }}</td>
-            <td class="categorias__cell">{{ category.description }}</td>
             <td class="categorias__actions">
               <button class="categorias__btn categorias__btn--delete" (click)="removeCategory(category.id)"><img src="/img/trash.png" alt="Eliminar"></button>
-              <button class="categorias__btn categorias__btn--edit" routerLink="/categories-edit/{{ category.id }}"><img src="/img/edit.png" alt="Editar"></button>
             </td>
           </tr>
           }

@@ -31,7 +31,6 @@ export class CategoryAdd {
 
     this.categoriesService.create(this.category).subscribe({
       next: () => {
-        alert('Categoría creada correctamente');
         this.router.navigate(['/categories']);
       },
       error: (error) => {

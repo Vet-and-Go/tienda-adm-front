@@ -51,7 +51,7 @@ export class CategoryEdit implements OnInit {
 
     this.categoriesService.update(this.category).subscribe({
       next: () => {
-        alert('Categoría actualizada correctamente');
+        
         this.router.navigate(['/categories']);
       },
       error: (error) => {

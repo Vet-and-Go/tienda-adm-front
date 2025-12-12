@@ -43,12 +43,21 @@
     font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;
+
+    &--id {
+      width: 80px;
+    }
+
+    &--name {
+      width: 200px;
+    }
   }
+  
   &__table-header--actions {
     text-align: center;
     font-size: 14px;
     text-transform: uppercase;
-    
+    width: 100px;
   }
 
   
