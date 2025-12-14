@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
@@ -7,40 +6,26 @@ import { Category } from '../../../Models/category';
 
 @Component({
   selector: 'app-category-add',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './category-add.html',
   styleUrl: './category-add.scss',
 })
 export class CategoryAdd {
-  category: Category = {
-    id: 0,
-    name: '',
-    description: ''
-  };
+  private readonly router = inject(Router);
+  private readonly categoriesService = inject(CategoriesService);
+  category: Category = { name: '', description: '' };
 
-  constructor(
-    private router: Router,
-    private categoriesService: CategoriesService
-  ) {}
-
-  saveCategory() {
-    if (!this.category.name || !this.category.description) {
-      alert('Todos los campos son obligatorios');
-      return;
-    }
-
+  save() {
     this.categoriesService.create(this.category).subscribe({
-      next: () => {
-        this.router.navigate(['/categories']);
-      },
-      error: (error) => {
-        console.error('Error creating category:', error);
+      next: () => this.goBack(),
+      error: err => {
+        console.error('Error creando categoría:', err);
         alert('Error al crear la categoría');
       }
     });
   }
 
-  cancel() {
+  goBack() {
     this.router.navigate(['/categories']);
   }
 }

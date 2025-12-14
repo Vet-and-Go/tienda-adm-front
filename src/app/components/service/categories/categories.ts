@@ -1,37 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Http } from '../../ui/http/http';
-import { Category } from '../../../Models/category';
 import { Observable } from 'rxjs';
+import { Http } from '../../../core/services/http/http.service';
+import { Category } from '../../../Models/category';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CategoriesService {
-  url: string = 'categories'
+  url: string = 'categories';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   getAll(): Observable<Category[]> {
     return this.http.getAll<Category>(this.url);
   }
 
   getById(id: number): Observable<Category> {
-    return this.http.getById<Category>(this.url + '/' + id);
+    return this.http.getById<Category>(`${this.url}/${id}`);
   }
 
-  getByName(name: string): Observable<Category> {
-    return this.http.getByName<Category>(this.url + '/' + name);
+  create(cat: Category): Observable<Category> {
+    return this.http.create<Category>(this.url, cat);
   }
 
-  create(category: Category): Observable<Category> {
-    return this.http.create<Category>(this.url, category);
+  update(cat: Category): Observable<Category> {
+    return this.http.update<Category>(`${this.url}/${cat.id}`, cat);
   }
 
-  update(category: Category): Observable<Category> {
-    return this.http.update<Category>(this.url + '/' + category.id, category);
-  }
-
-  delete(id: number): Observable<Category> {
-    return this.http.deleteById<Category>(this.url + '/' + id);
+  delete(id: number): Observable<void> {
+    return this.http.deleteById<void>(`${this.url}/${id}`);
   }
 }

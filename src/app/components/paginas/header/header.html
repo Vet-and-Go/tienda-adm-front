@@ -4,7 +4,7 @@
     <div class="header__title">
       <h1>VetandGo ADM</h1>
     </div>
-    <nav class="header__nav">
+    <nav class="header__nav nav">
       <ul class="nav__list">
         <li class="nav__item">
           <a routerLink="/" class="nav__link">
@@ -12,7 +12,7 @@
           </a>
         </li>
         <li class="nav__item">
-          <a routerLink="/products"  class="nav__link">
+          <a routerLink="/products" class="nav__link">
             Products
           </a>
         </li>
@@ -23,5 +23,13 @@
         </li>
       </ul>
     </nav>
+    @if (auth.isLoggedIn()) {
+      <div class="header__user">
+        <span class="header__username">{{ auth.getUsername() }}</span>
+        <button class="boton boton--funcion-peligrosa boton--importancia-primaria boton--size-sm" (click)="logout()">
+          Cerrar sesión
+        </button>
+      </div>
+    }
   </div>
 </header>

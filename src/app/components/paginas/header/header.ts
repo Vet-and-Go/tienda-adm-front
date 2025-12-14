@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../service/auth/auth';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.scss',
 })
 export class Header {
+  readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
+  logout() {
+    this.auth.logout().subscribe({
+      complete: () => this.router.navigate(['/login']),
+      error: (err) => {
+        console.error('Error en logout:', err);
+        this.auth.clearSession();
+        this.router.navigate(['/login']);
+      }
+    });
+  }
 }

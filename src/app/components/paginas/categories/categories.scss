@@ -1,29 +1,46 @@
 .categorias {
-  padding: 32px;
+  --categorias-padding: var(--mlt-sys-padding-10);
+  --categorias-container-max-width: var(--mlt-sys-width-16);
+  --categorias-header-margin-bottom: var(--mlt-sys-margin-9);
+  --categorias-title-font-size: var(--mlt-sys-font-size-8);
+  --categorias-title-color: var(--mlt-sys-color-white-9);
+  --categorias-table-background: var(--mlt-sys-color-white-1);
+  --categorias-table-border-radius: var(--mlt-sys-border-radius-5);
+  --categorias-table-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --categorias-table-head-background: var(--mlt-sys-color-alternative-5);
+  --categorias-table-head-color: var(--mlt-sys-color-white-1);
+  --categorias-row-border-color: var(--mlt-sys-color-white-2);
+  --categorias-cell-color: var(--mlt-sys-color-white-9);
+  --categorias-name-hover-color: var(--mlt-sys-color-alternative-5);
+  --categorias-empty-color: var(--mlt-sys-color-white-5);
+  --categorias-font-family-title: var(--mlt-sys-font-family-title);
+  --categorias-font-family-text: var(--mlt-sys-font-family-text);
+
+  padding: var(--categorias-padding);
 
   &__container {
-    max-width: 1200px;
+    max-width: var(--categorias-container-max-width);
     margin: 0 auto;
   }
 
   &__header {
-    margin-bottom: 24px;
+    margin-bottom: var(--categorias-header-margin-bottom);
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     h1 {
-      font-size: 36px;
+      font-size: var(--categorias-title-font-size);
       margin: 0;
-      color: var(--mlt-sys-color-white-9);
-      font-family: var(--mlt-sys-font-family-title);
+      color: var(--categorias-title-color);
+      font-family: var(--categorias-font-family-title);
     }
   }
 
   &__table {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--categorias-table-background);
+    border-radius: var(--categorias-table-border-radius);
+    box-shadow: var(--categorias-table-shadow);
     overflow: hidden;
   }
 
@@ -33,15 +50,19 @@
   }
 
   &__table-head {
-    background: var(--mlt-sys-color-alternative-5);
-    color: white;
+    background: var(--categorias-table-head-background);
+    color: var(--categorias-table-head-color);
   }
 
   &__table-header {
-    padding: 16px;
+    --header-padding: var(--mlt-sys-padding-7);
+    --header-font-size: var(--mlt-sys-font-size-2);
+    --header-font-weight: 600;
+
+    padding: var(--header-padding);
     text-align: left;
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: var(--header-font-weight);
+    font-size: var(--header-font-size);
     text-transform: uppercase;
 
     &--id {
@@ -54,16 +75,17 @@
   }
   
   &__table-header--actions {
+    --header-actions-font-size: var(--mlt-sys-font-size-2);
+    --header-actions-width: 100px;
+
     text-align: center;
-    font-size: 14px;
+    font-size: var(--header-actions-font-size);
     text-transform: uppercase;
-    width: 100px;
+    width: var(--header-actions-width);
   }
 
-  
-
   &__row {
-    border-bottom: 1px solid var(--mlt-sys-color-white-2);
+    border-bottom: 1px solid var(--categorias-row-border-color);
     transition: background-color 0.2s;
 
     &:last-child {
@@ -72,21 +94,27 @@
   }
 
   &__cell {
-    padding: 16px;
-    font-size: 14px;
-    color: var(--mlt-sys-color-white-9);
-    font-family: var(--mlt-sys-font-family-text);
+    --cell-padding: var(--mlt-sys-padding-7);
+    --cell-font-size: var(--mlt-sys-font-size-2);
+
+    padding: var(--cell-padding);
+    font-size: var(--cell-font-size);
+    color: var(--categorias-cell-color);
+    font-family: var(--categorias-font-family-text);
   }
 
   &__name {
-    padding: 16px;
-    font-size: 14px;
-    color: var(--mlt-sys-color-white-9);
+    --name-padding: var(--mlt-sys-padding-7);
+    --name-font-size: var(--mlt-sys-font-size-2);
+
+    padding: var(--name-padding);
+    font-size: var(--name-font-size);
+    color: var(--categorias-cell-color);
     cursor: pointer;
-    font-family: var(--mlt-sys-font-family-text);
+    font-family: var(--categorias-font-family-text);
     
     &:hover {
-      color: var(--mlt-sys-color-alternative-5);
+      color: var(--categorias-name-hover-color);
       text-decoration: underline;
     }
   }
@@ -96,58 +124,30 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    
-    
-
-  }
-
-  &__btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-
-    img {
-      width: 30px;
-      height: 40px;
-    }
-
-    &--add {
-      background-color: var(--mlt-sys-color-button-secundary-2);
-      font-family: var(--mlt-sys-font-family-text);
-      color: white;
-      padding: 14px 32px;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      }
-    }
-
-    &--delete {
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
   }
 
   &__empty {
+    --empty-padding: var(--mlt-sys-padding-12) var(--mlt-sys-padding-8);
+
     text-align: center;
-    padding: 48px 20px;
-    color: var(--mlt-sys-color-white-5);
+    padding: var(--empty-padding);
+    color: var(--categorias-empty-color);
+  }
+
+  &__loading {
+    --loading-padding: var(--mlt-sys-padding-12) var(--mlt-sys-padding-8);
+    --loading-color: var(--mlt-sys-color-white-6);
+    --loading-font-size: var(--mlt-sys-font-size-4);
+
+    text-align: center;
+    padding: var(--loading-padding);
+    color: var(--loading-color);
+    font-size: var(--loading-font-size);
+    font-family: var(--categorias-font-family-text);
+
+    p {
+      margin: 0;
+    }
   }
 }
 

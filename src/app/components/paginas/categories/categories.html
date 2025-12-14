@@ -2,11 +2,11 @@
   <div class="categorias__container">
     <div class="categorias__header">
       <h1>Gestión de Categorías</h1>
-      <button class="categorias__btn categorias__btn--add" routerLink="/categories-add">
+      <button class="boton boton--funcion-alternativa boton--importancia-primaria" routerLink="/categories-add">
         Agregar Categoría
       </button>
     </div>
-    
+
     <div class="categorias__table">
       <table class="categorias__table-wrapper">
         <thead class="categorias__table-head">
@@ -22,7 +22,8 @@
             <td class="categorias__cell">{{ category.id }}</td>
             <td class="categorias__name" routerLink="/categories-edit/{{ category.id }}">{{ category.name }}</td>
             <td class="categorias__actions">
-              <button class="categorias__btn categorias__btn--delete" (click)="removeCategory(category.id)"><img src="/img/trash.png" alt="Eliminar"></button>
+              <button class="boton boton--icon-only" (click)="remove(category.id!)"><img src="/img/trash.png"
+                  alt="Eliminar"></button>
             </td>
           </tr>
           }
@@ -38,5 +39,3 @@
     </div>
   </div>
 </div>
-
-

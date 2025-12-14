@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
@@ -7,61 +6,43 @@ import { Category } from '../../../Models/category';
 
 @Component({
   selector: 'app-category-edit',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './category-edit.html',
   styleUrl: './category-edit.scss',
 })
 export class CategoryEdit implements OnInit {
-  category: Category = {
-    id: 0,
-    name: '',
-    description: ''
-  };
-  isLoading = true;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private categoriesService: CategoriesService
-  ) {}
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly categoriesService = inject(CategoriesService);
+  category: Category = { name: '', description: '' };
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.categoriesService.getById(id).subscribe({
-        next: (category) => {
-          this.category = category;
-          this.isLoading = false;
+        next: data => {
+          this.category = data;
         },
-        error: (error) => {
-          console.error('Error loading category:', error);
-          this.isLoading = false;
+        error: err => {
+          console.error('Error cargando categoría:', err);
           alert('Error al cargar la categoría');
-          this.router.navigate(['/categories']);
+          this.goBack();
         }
       });
     }
   }
 
-  saveCategory() {
-    if (!this.category.name || !this.category.description) {
-      alert('Todos los campos son obligatorios');
-      return;
-    }
-
+  save() {
     this.categoriesService.update(this.category).subscribe({
-      next: () => {
-        
-        this.router.navigate(['/categories']);
-      },
-      error: (error) => {
-        console.error('Error updating category:', error);
+      next: () => this.goBack(),
+      error: err => {
+        console.error('Error actualizando categoría:', err);
         alert('Error al actualizar la categoría');
       }
     });
   }
 
-  cancel() {
+  goBack() {
     this.router.navigate(['/categories']);
   }
 }

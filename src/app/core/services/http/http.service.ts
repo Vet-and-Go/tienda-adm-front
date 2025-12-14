@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class Http {
   url: string = '/api/';
+
   constructor(private http: HttpClient) { }
-  
+
   getAll<T>(route: string): Observable<T[]> {
     return this.http.get<T[]>(`${this.url}${route}`)
   }
@@ -16,6 +15,7 @@ export class Http {
   getById<T>(route: string): Observable<T> {
     return this.http.get<T>(`${this.url}${route}`)
   }
+
   create<T>(route: string, newObject: T): Observable<T> {
     return this.http.post<T>(`${this.url}${route}`, newObject)
   }
@@ -31,7 +31,4 @@ export class Http {
   getByName<T>(route: string): Observable<T> {
     return this.http.get<T>(`${this.url}${route}`)
   }
-
-
-  
 }

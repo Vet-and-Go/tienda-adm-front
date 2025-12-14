@@ -1,50 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
 import { Category } from '../../../Models/category';
 
 @Component({
   selector: 'app-categories',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './categories.html',
   styleUrl: './categories.scss',
 })
 export class Categories implements OnInit {
+  private readonly categoriesService = inject(CategoriesService);
   categories: Category[] = [];
 
-  constructor(
-    private categoriesService: CategoriesService,
-    private router: Router
-  ) {}
-
   ngOnInit() {
-    console.log('Categories component initialized');
-    this.updateCategoryList();
+    this.load();
   }
 
-  updateCategoryList() {
-    console.log('Fetching categories...');
+  load() {
     this.categoriesService.getAll().subscribe({
-      next: (categories) => {
-        console.log('Categories received:', categories);
-        this.categories = categories;
-        console.log('Categories updated in component:', this.categories);
+      next: data => {
+        this.categories = data;
       },
-      error: (error) => {
-        console.error('Error fetching categories:', error);
-        console.error('Error status:', error.status);
-        console.error('Error message:', error.message);
-        console.error('Error URL:', error.url);
+      error: err => {
+        console.error('Error cargando categorías:', err);
+        alert('Error al cargar las categorías');
       }
     });
   }
 
-  removeCategory(id: number) {
-    if (confirm('¿Estás seguro de eliminar esta categoría?')) {
-      this.categoriesService.delete(id).subscribe(() => {
-        this.updateCategoryList();
+  remove(id: number) {
+    if (confirm('¿Eliminar esta categoría?')) {
+      this.categoriesService.delete(id).subscribe({
+        next: () => this.load(),
+        error: err => {
+          console.error('Error eliminando categoría:', err);
+          alert('Error al eliminar la categoría');
+        }
       });
     }
   }
