@@ -20,7 +20,7 @@ export class Products {
   load() {
     this.productService.getAll().subscribe({
       next: data => {
-        this.products = data;
+        this.products = (data as any).content;
       },
       error: err => {
         console.error('Error while loading products:', err);
