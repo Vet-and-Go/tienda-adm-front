@@ -1,6 +1,52 @@
 <div class="productos">
   <div class="productos__container">
-    <h1>Productos</h1>
-    <p>Gestión de productos</p>
+    <div class="productos__header">
+      <h1>Gestión de Productos</h1>
+      <button
+        class="boton boton--funcion-alternativa boton--importancia-primaria" routerLink="/products-add">
+        Agregar Producto
+      </button>
+    </div>
+
+    <div class="productos__table">
+      <table class="productos__table-wrapper">
+        <thead class="productos__table-head">
+          <tr class="productos__row">
+            <th class="productos__table-header productos__table-header--id">ID</th>
+            <th class="productos__table-header productos__table-header--name">Nombre</th>
+            <th class="productos__table-header--actions">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="productos__table-body">
+          @for (product of products; track $index) {
+          <tr class="productos__row">
+            <td class="productos__cell">{{ product.id }}</td>
+            <td
+              class="productos__name"
+              routerLink="/products-edit/{{ product.id }}"
+            >
+              {{ product.name }}
+            </td>
+            <td class="productos__actions">
+              <button
+                class="boton boton--icon-only"
+                (click)="remove(product.id!)"
+              >
+                <img src="/img/trash.png" alt="Eliminar">
+              </button>
+            </td>
+          </tr>
+          }
+          @empty {
+          <tr class="productos__row">
+            <td colspan="4" class="productos__empty">
+              No hay productos disponibles
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
