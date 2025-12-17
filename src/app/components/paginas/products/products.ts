@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../service/products/products';
 import { Product } from '../../../Models/product';
@@ -9,24 +9,51 @@ import { Product } from '../../../Models/product';
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
-export class Products {
+export class Products implements OnInit {
   private readonly productService = inject(ProductsService);
   products: Product[] = [];
+  pageNumber: number = 1;
+  pageSize: number = 5;
+  totalPages: number = 0;
+  totalElements: number = 0;
+  pages: number[] = [];
 
   ngOnInit() {
     this.load();
   }
 
   load() {
-    this.productService.getAll().subscribe({
+    this.productService.getAll(this.pageNumber, this.pageSize).subscribe({
       next: data => {
-        this.products = (data as any).content;
+        this.products = data.data;
+        this.totalPages = data.totalPages;
+        this.totalElements = data.totalElements;
+        this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
       },
       error: err => {
         console.error('Error while loading products:', err);
         alert('Error loading the products');
       }
     });
+  }
+
+  nextPage() {
+    if (this.pageNumber < this.totalPages - 1) {
+      this.pageNumber++;
+      this.load();
+    }
+  }
+
+  previousPage() {
+    if (this.pageNumber > 0) {
+      this.pageNumber--;
+      this.load();
+    }
+  }
+
+  goToPage(page: number) {
+    this.pageNumber = page;
+    this.load();
   }
 
   remove(id: number) {

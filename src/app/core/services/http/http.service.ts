@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Page } from '../../../Models/page';
 
 @Injectable({ providedIn: 'root' })
 export class Http {
@@ -10,6 +11,10 @@ export class Http {
 
   getAll<T>(route: string): Observable<T[]> {
     return this.http.get<T[]>(`${this.url}${route}`)
+  }
+
+  getAllPaginated<T>(route: string, page: number, size: number): Observable<Page<T>> {
+    return this.http.get<Page<T>>(`${this.url}${route}?page=${page}&size=${size}`);
   }
 
   getById<T>(route: string): Observable<T> {

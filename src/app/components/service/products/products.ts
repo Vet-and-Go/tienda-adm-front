@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http } from '../../../core/services/http/http.service';
 import { Product } from '../../../Models/product';
+import { Page } from '../../../Models/page';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ export class ProductsService {
 
   constructor(private http: Http) { }
 
-  getAll(): Observable<Product[]> {
-    return this.http.getAll<Product>(this.url);
+  getAll(page: number, size: number): Observable<Page<Product>> {
+    return this.http.getAllPaginated<Product>(this.url, page, size);
   }
 
   getById(id: number): Observable<Product> {
