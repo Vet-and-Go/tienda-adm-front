@@ -36,12 +36,12 @@
         </tbody>
       </table>
     </div>
-    <div class="pagination">
-      <button (click)="previousPage()" [disabled]="pageNumber === 0" class="boton">Anterior</button>
+    <div class="productos__pagination">
+      <button (click)="previousPage()" [disabled]="pageNumber === 1" class="boton">Anterior</button>
       @for(page of pages; track $index){
-        <button (click)="goToPage(page)" [class.active]="page === pageNumber" class="boton">{{ page + 1 }}</button>
+        <button (click)="goToPage(page)" [class.active]="page === pageNumber" class="boton">{{ page }}</button>
       }
-      <button (click)="nextPage()" [disabled]="pageNumber === totalPages - 1" class="boton">Siguiente</button>
+      <button (click)="nextPage()" [disabled]="pageNumber === totalPages" class="boton">Siguiente</button>
     </div>
   </div>
 </div>

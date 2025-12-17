@@ -28,7 +28,7 @@ export class Products implements OnInit {
         this.products = data.data;
         this.totalPages = data.totalPages;
         this.totalElements = data.totalElements;
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
+        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
       },
       error: err => {
         console.error('Error while loading products:', err);
@@ -38,14 +38,14 @@ export class Products implements OnInit {
   }
 
   nextPage() {
-    if (this.pageNumber < this.totalPages - 1) {
+    if (this.pageNumber < this.totalPages) { // Changed from totalPages - 1 to totalPages
       this.pageNumber++;
       this.load();
     }
   }
 
   previousPage() {
-    if (this.pageNumber > 0) {
+    if (this.pageNumber > 1) { // Changed from 0 to 1
       this.pageNumber--;
       this.load();
     }
