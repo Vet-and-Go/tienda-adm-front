@@ -1,0 +1,85 @@
+.product-add {
+  --product-add-padding: var(--mlt-sys-padding-10);
+  --product-add-container-max-width: var(--mlt-sys-width-16);
+  --product-add-header-margin-bottom: var(--mlt-sys-margin-9);
+  --product-add-title-font-size: var(--mlt-sys-font-size-8);
+  --product-add-title-color: var(--mlt-sys-color-white-9);
+  --product-add-form-background: var(--mlt-sys-color-white-1);
+  --product-add-form-border-radius: var(--mlt-sys-border-radius-5);
+  --product-add-form-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --product-add-label-color: var(--mlt-sys-color-white-7);
+  --product-add-input-border: 1px solid var(--mlt-sys-color-white-3);
+  --product-add-input-border-radius: var(--mlt-sys-border-radius-2);
+  --product-add-input-padding: var(--mlt-sys-padding-4);
+  --product-add-input-focus-border: 1px solid var(--mlt-sys-color-primary-5);
+  --product-add-error-color: var(--mlt-sys-color-danger-5);
+  --product-add-actions-margin-top: var(--mlt-sys-margin-9);
+  --product-add-font-family-title: var(--mlt-sys-font-family-title);
+  --product-add-font-family-text: var(--mlt-sys-font-family-text);
+
+  padding: var(--product-add-padding);
+
+  &__container {
+    max-width: var(--product-add-container-max-width);
+    margin: 0 auto;
+    background: var(--product-add-form-background);
+    border-radius: var(--product-add-form-border-radius);
+    box-shadow: var(--product-add-form-shadow);
+    padding: var(--product-add-padding);
+  }
+
+  &__header {
+    margin-bottom: var(--product-add-header-margin-bottom);
+    h1 {
+      font-size: var(--product-add-title-font-size);
+      margin: 0;
+      color: var(--product-add-title-color);
+      font-family: var(--product-add-font-family-title);
+    }
+  }
+
+  &__form-group {
+    margin-bottom: var(--mlt-sys-margin-5);
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: var(--mlt-sys-margin-2);
+    color: var(--product-add-label-color);
+    font-family: var(--product-add-font-family-text);
+  }
+
+  &__input,
+  &__textarea,
+  &__select {
+    width: 100%;
+    padding: var(--product-add-input-padding);
+    border: var(--product-add-input-border);
+    border-radius: var(--product-add-input-border-radius);
+    font-family: var(--product-add-font-family-text);
+    font-size: var(--mlt-sys-font-size-3);
+
+    &:focus {
+      outline: none;
+      border-color: var(--product-add-input-focus-border);
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  &__error {
+    color: var(--product-add-error-color);
+    font-size: var(--mlt-sys-font-size-1);
+    margin-top: var(--mlt-sys-margin-1);
+  }
+
+  &__actions {
+    margin-top: var(--product-add-actions-margin-top);
+    display: flex;
+    gap: var(--mlt-sys-margin-3);
+    justify-content: flex-end;
+  }
+}
