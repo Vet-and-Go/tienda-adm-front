@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { LoginRequest, LoginResponse } from '../../../Models/auth';
+import { Observable, tap, shareReplay, catchError, of, map } from 'rxjs';
+import { LoginRequest, LoginResponse, User } from '../../../Models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  url: string = '/api/auth/';
+  url: string = '/api/users/auth/';
+
+  private Role: string | null = null;
+  currentUser: User | null = null;
+  private _username: string | null = null;
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.url}login`, credentials).pipe(
+  login(credentials: LoginRequest, role: string = 'admin'): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.url}login/${role}`, credentials).pipe(
       tap(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('username', res.username);
-        localStorage.setItem('role', res.role);
+        this._username = res.username;
+        this.Role = res.role;
       })
     );
   }
@@ -25,8 +30,41 @@ export class AuthService {
     );
   }
 
+  private session$?: Observable<User>;
+
+  validateSession(): Observable<User> {
+    const token = this.getToken();
+    if (!token) {
+      return new Observable(observer => {
+        observer.error('No token');
+        observer.complete();
+      });
+    }
+
+    if (this.currentUser) {
+      return of(this.currentUser);
+    }
+
+    if (!this.session$) {
+      this.session$ = this.http.post<User>(`${this.url}session`, token).pipe(
+        tap(user => {
+          this.currentUser = user;
+          this.Role = user.role;
+          this._username = user.username;
+        }),
+        shareReplay(1)
+      );
+    }
+
+    return this.session$;
+  }
+
   clearSession(): void {
-    ['token', 'username', 'role'].forEach(k => localStorage.removeItem(k));
+    ['token', 'username'].forEach(k => localStorage.removeItem(k));
+    this.Role = null;
+    this.currentUser = null;
+    this._username = null;
+    this.session$ = undefined;
   }
 
   getToken(): string | null {
@@ -34,11 +72,11 @@ export class AuthService {
   }
 
   getUsername(): string | null {
-    return localStorage.getItem('username');
+    return this._username || localStorage.getItem('username');
   }
 
   getRole(): string | null {
-    return localStorage.getItem('role');
+    return this.Role;
   }
 
   isLoggedIn(): boolean {
@@ -46,6 +84,6 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return this.getRole() === 'ADMIN';
+    return this.Role === 'ADMIN';
   }
 }

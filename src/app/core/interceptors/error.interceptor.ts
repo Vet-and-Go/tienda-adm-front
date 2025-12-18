@@ -11,11 +11,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req).pipe(
         catchError(error => {
             // Error 401: Token inválido o expirado - logout automático
-            if (error.status === 401 && !req.url.includes('/auth/login')) {
-                console.error('Sesión expirada o token inválido');
-                authService.clearSession();
-                router.navigate(['/login']);
-                alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+            if (error.status === 401) {
+                if (req.url.includes('/auth/login')) {
+                    // El componente login ya maneja sus propios errores
+                } else {
+                    console.error('Sesión expirada o token inválido');
+                    authService.clearSession();
+                    router.navigate(['/admin/login']);
+                    alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+                }
             }
 
             // Error 403: Sin permisos

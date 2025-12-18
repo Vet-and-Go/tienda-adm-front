@@ -103,7 +103,7 @@ export class ProductEdit implements OnInit {
       this.productService.upate(updatedProduct).subscribe({
         next: () => {
           alert('Product updated successfully!');
-          this.router.navigate(['/products']);
+          this.router.navigate(['/admin/products']);
         },
         error: (err) => {
           console.error('Error updating product:', err);
@@ -116,7 +116,7 @@ export class ProductEdit implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/admin/products']);
   }
 
   compareCat(c1: Category, c2: Category): boolean {

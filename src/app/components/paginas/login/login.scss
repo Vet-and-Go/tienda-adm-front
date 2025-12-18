@@ -1,6 +1,5 @@
 .login {
-  --login-background-gradient-start: var(--mlt-sys-color-primary-1);
-  --login-background-gradient-end: var(--mlt-sys-color-alternative-4);
+  --login-background: var(--mlt-sys-color-white-2);
   --login-container-background: var(--mlt-sys-color-white-1);
   --login-container-border-radius: var(--mlt-sys-border-radius-6);
   --login-container-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -23,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--login-background-gradient-start) 0%, var(--login-background-gradient-end) 100%);
+  background: var(--login-background);
   padding: var(--mlt-sys-padding-8);
 
   &__container {

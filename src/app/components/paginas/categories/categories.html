@@ -2,7 +2,7 @@
   <div class="categorias__container">
     <div class="categorias__header">
       <h1>Gestión de Categorías</h1>
-      <button class="boton boton--funcion-alternativa boton--importancia-primaria" routerLink="/categories-add">
+      <button class="boton boton--funcion-alternativa boton--importancia-primaria" routerLink="/admin/categories/add">
         Agregar Categoría
       </button>
     </div>
@@ -20,7 +20,7 @@
           @for (category of categories; track $index) {
           <tr class="categorias__row">
             <td class="categorias__cell">{{ category.id }}</td>
-            <td class="categorias__name" routerLink="/categories-edit/{{ category.id }}">{{ category.name }}</td>
+            <td class="categorias__name" routerLink="/admin/categories/edit/{{ category.id }}">{{ category.name }}</td>
             <td class="categorias__actions">
               <button class="boton boton--icon-only" (click)="remove(category.id!)"><img src="/img/trash.png"
                   alt="Eliminar"></button>

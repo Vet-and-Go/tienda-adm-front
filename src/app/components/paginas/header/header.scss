@@ -1,6 +1,6 @@
 .header {
   --header-color-primary: var(--mlt-sys-color-alternative-1);
-  --header-color-letra: var(--mlt-sys-color-alternative-10);
+  --header-color-letra: var(--mlt-sys-color-primary-10);
   --header-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --header-container-max-width: var(--mlt-sys-width-16);
   --header-container-padding: var(--mlt-sys-padding-7) var(--mlt-sys-padding-10);
@@ -71,11 +71,24 @@
   &__username {
     --username-font-size: var(--mlt-sys-font-size-2);
     --username-font-weight: 500;
+    --username-color: var(--mlt-sys-color-alternative-10);
+
 
     font-size: var(--username-font-size);
     font-weight: var(--username-font-weight);
-    color: var(--header-color-letra);
+    color: var(--username-color);
     font-family: var(--header-font-family-text);
+  }
+
+  &__logout {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 

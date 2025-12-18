@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { Header } from "../header/header";
+import { AuthService } from "../../service/auth/auth";
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,6 @@ import { Header } from "../header/header";
 })
 export class App {
   protected readonly title = signal('vetandgo_amd');
+  private readonly router = inject(Router);
+  private readonly auth = inject(AuthService);
 }

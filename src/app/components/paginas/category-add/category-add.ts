@@ -26,6 +26,6 @@ export class CategoryAdd {
   }
 
   goBack() {
-    this.router.navigate(['/categories']);
+    this.router.navigate(['/admin/categories']);
   }
 }

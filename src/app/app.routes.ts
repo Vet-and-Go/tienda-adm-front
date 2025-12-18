@@ -7,16 +7,18 @@ import { ProductAdd } from './components/paginas/product-add/product-add';
 import { ProductEdit } from './components/paginas/product-edit/product-edit';
 import { Inicio } from './components/paginas/inicio/inicio';
 import { Login } from './components/paginas/login/login';
-import { authGuard, guestGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/auth.guard';
+import { App } from './components/paginas/app/app';
 
 export const routes: Routes = [
-  { path: 'login', component: Login, canActivate: [guestGuard] },
-  { path: '', component: Inicio, canActivate: [authGuard] },
-  { path: 'products', component: Products, canActivate: [authGuard] },
-  { path: 'products-add', component: ProductAdd, canActivate: [authGuard] },
-  { path: 'products-edit/:id', component: ProductEdit, canActivate: [authGuard] },
-  { path: 'categories', component: Categories, canActivate: [authGuard] },
-  { path: 'categories-add', component: CategoryAdd, canActivate: [authGuard] },
-  { path: 'categories-edit/:id', component: CategoryEdit, canActivate: [authGuard] },
-  { path: '**', redirectTo: '' }
+  { path: '', component: App },
+  { path: 'admin', component: Inicio, canActivate: [adminGuard] },
+  { path: 'admin/products', component: Products, canActivate: [adminGuard] },
+  { path: 'admin/products/add', component: ProductAdd, canActivate: [adminGuard] },
+  { path: 'admin/products/edit/:id', component: ProductEdit, canActivate: [adminGuard] },
+  { path: 'admin/categories', component: Categories, canActivate: [adminGuard] },
+  { path: 'admin/categories/add', component: CategoryAdd, canActivate: [adminGuard] },
+  { path: 'admin/categories/edit/:id', component: CategoryEdit, canActivate: [adminGuard] },
+  { path: 'admin/login', component: Login },
+  { path: '**', redirectTo: 'admin' }
 ];

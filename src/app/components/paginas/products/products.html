@@ -2,8 +2,8 @@
   <div class="productos__container">
     <div class="productos__header">
       <h1>Gestión de Productos</h1>
-      <button
-        class="boton boton--funcion-alternativa boton--importancia-primaria" routerLink="/products-add"> Agregar Producto </button>
+      <button class="boton boton--funcion-alternativa boton--importancia-primaria" routerLink="/admin/products/add">
+        Agregar Producto </button>
     </div>
 
     <div class="productos__table">
@@ -19,9 +19,10 @@
           @for (product of products; track $index) {
           <tr class="productos__row">
             <td class="productos__cell">{{ product.id }}</td>
-            <td class="productos__name" routerLink="/products-edit/{{ product.id }}"> {{ product.name }}</td>
+            <td class="productos__name" routerLink="/admin/products/edit/{{ product.id }}"> {{ product.name }}</td>
             <td class="productos__actions">
-              <button class="boton boton--icon-only" (click)="remove(product.id!)"><img src="/img/trash.png" alt="Eliminar">
+              <button class="boton boton--icon-only" (click)="remove(product.id!)"><img src="/img/trash.png"
+                  alt="Eliminar">
               </button>
             </td>
           </tr>
@@ -39,7 +40,7 @@
     <div class="productos__pagination">
       <button (click)="previousPage()" [disabled]="pageNumber === 1" class="boton">◄</button>
       @for(page of pages; track $index){
-        <button (click)="goToPage(page)" [class.active]="page === pageNumber" class="boton">{{ page }}</button>
+      <button (click)="goToPage(page)" [class.active]="page === pageNumber" class="boton">{{ page }}</button>
       }
       <button (click)="nextPage()" [disabled]="pageNumber === totalPages" class="boton">►</button>
     </div>

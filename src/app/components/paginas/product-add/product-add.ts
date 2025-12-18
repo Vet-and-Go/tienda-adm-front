@@ -62,7 +62,7 @@ export class ProductAdd implements OnInit {
       this.productService.create(newProduct).subscribe({
         next: () => {
           alert('Product added successfully!');
-          this.router.navigate(['/products']);
+          this.router.navigate(['/admin/products']);
         },
         error: (err) => {
           console.error('Error adding product:', err);
@@ -75,6 +75,6 @@ export class ProductAdd implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/admin/products']);
   }
 }
