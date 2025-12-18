@@ -5,35 +5,35 @@ import { Page } from '../../../Models/page';
 
 @Injectable({ providedIn: 'root' })
 export class Http {
-  url: string = '/api/';
+  private readonly baseUrl: string = '/api';
 
   constructor(private http: HttpClient) { }
 
   getAll<T>(route: string): Observable<T[]> {
-    return this.http.get<T[]>(`${this.url}${route}`)
+    return this.http.get<T[]>(`${this.baseUrl}/${route}`);
   }
 
   getAllPaginated<T>(route: string, page: number, size: number): Observable<Page<T>> {
-    return this.http.get<Page<T>>(`${this.url}${route}?page=${page}&size=${size}`);
+    return this.http.get<Page<T>>(`${this.baseUrl}/${route}?page=${page}&size=${size}`);
   }
 
   getById<T>(route: string): Observable<T> {
-    return this.http.get<T>(`${this.url}${route}`)
+    return this.http.get<T>(`${this.baseUrl}/${route}`);
   }
 
   create<T>(route: string, newObject: T): Observable<T> {
-    return this.http.post<T>(`${this.url}${route}`, newObject)
+    return this.http.post<T>(`${this.baseUrl}/${route}`, newObject);
   }
 
   update<T>(route: string, newObject: T): Observable<T> {
-    return this.http.put<T>(`${this.url}${route}`, newObject)
+    return this.http.put<T>(`${this.baseUrl}/${route}`, newObject);
   }
 
   deleteById<T>(route: string): Observable<T> {
-    return this.http.delete<T>(`${this.url}${route}`)
+    return this.http.delete<T>(`${this.baseUrl}/${route}`);
   }
 
   getByName<T>(route: string): Observable<T> {
-    return this.http.get<T>(`${this.url}${route}`)
+    return this.http.get<T>(`${this.baseUrl}/${route}`);
   }
 }

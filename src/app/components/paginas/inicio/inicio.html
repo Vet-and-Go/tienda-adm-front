@@ -8,7 +8,6 @@
         <p>Panel de Administración VetAndGo</p>
       </div>
       <div class="inicio__info">
-        <span>{{ auth.isAdmin() ? 'Administrador' : 'Usuario' }}</span>
         <span>{{ currentTime }}</span>
       </div>
     </div>
@@ -24,7 +23,7 @@
             <div class="inicio__stat-icon">📂</div>
             <div class="inicio__stat-info">
               <label>Categorías</label>
-              <strong>{{ loading ? '...' : stats.totalCategories }}</strong>
+              <strong>{{ totalCategories }}</strong>
             </div>
           </div>
 
@@ -32,7 +31,7 @@
             <div class="inicio__stat-icon">📦</div>
             <div class="inicio__stat-info">
               <label>Productos</label>
-              <strong>{{ loading ? '...' : stats.totalProducts }}</strong>
+              <strong>{{ totalProducts }}</strong>
             </div>
           </div>
 
@@ -40,7 +39,7 @@
             <div class="inicio__stat-icon">👥</div>
             <div class="inicio__stat-info">
               <label>Usuarios</label>
-              <strong>{{ loading ? '...' : stats.totalUsers }}</strong>
+              <strong>{{ totalUsers }}</strong>
             </div>
           </div>
 

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
+import { ProductsService } from '../../service/products/products';
 import { AuthService } from '../../service/auth/auth';
 
 interface DashboardStats {
@@ -20,15 +21,14 @@ interface DashboardStats {
 export class Inicio implements OnInit, OnDestroy {
   /* Services */
   readonly categoriesService = inject(CategoriesService);
+  readonly productsService = inject(ProductsService);
   readonly auth = inject(AuthService);
 
   /* State */
   currentTime: string = '';
-  stats: DashboardStats = {
-    totalCategories: 0,
-    totalProducts: 0,
-    totalUsers: 0
-  };
+  totalCategories: number = 0;
+  totalProducts: number = 0;
+  totalUsers: number = 1;
   loading: boolean = true;
   private intervalId: any;
   private subscription: Subscription | null = null;
@@ -50,19 +50,20 @@ export class Inicio implements OnInit, OnDestroy {
 
   loadDashboardData() {
     this.loading = true;
-    this.subscription = this.categoriesService.getAll().subscribe({
-      next: categories => {
-        this.stats.totalCategories = categories.length;
-        this.loading = false;
+
+    this.subscription = forkJoin({
+      categories: this.categoriesService.getAll(),
+      productsPage: this.productsService.getAll(1, 1)
+    }).subscribe({
+      next: ({ categories, productsPage }) => {
+        this.totalCategories = categories.length;
+        this.totalProducts = productsPage.totalElements;
+        this.totalUsers = 1;
       },
-      error: err => {
-        console.error('Error cargando categorías:', err);
-        this.loading = false;
+      error: (err) => {
+        console.error('Error cargando datos del dashboard:', err);
       }
     });
-
-    this.stats.totalProducts = 0;
-    this.stats.totalUsers = 1;
   }
 
   updateTime() {

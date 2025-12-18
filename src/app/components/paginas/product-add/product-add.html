@@ -8,54 +8,60 @@
       <div class="product-add__form-group">
         <label for="name" class="product-add__label">Name:</label>
         <input id="name" type="text" formControlName="name" class="product-add__input" />
-        <div
-          *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)"
-          class="product-add__error">
+        @if (productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)) {
+        <div class="product-add__error">
           Name is required.
         </div>
+        }
       </div>
 
       <div class="product-add__form-group">
         <label for="description" class="product-add__label">Description:</label>
         <textarea id="description" formControlName="description" class="product-add__textarea"></textarea>
-        <div
-          *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.dirty || productForm.get('description')?.touched)"
-          class="product-add__error">
+        @if (productForm.get('description')?.invalid && (productForm.get('description')?.dirty ||
+        productForm.get('description')?.touched)) {
+        <div class="product-add__error">
           Description is required.
         </div>
+        }
       </div>
 
       <div class="product-add__form-group">
         <label for="price" class="product-add__label">Price:</label>
         <input id="price" type="number" formControlName="price" class="product-add__input" />
-        <div
-          *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)"
-          class="product-add__error">
+        @if (productForm.get('price')?.invalid && (productForm.get('price')?.dirty ||
+        productForm.get('price')?.touched)) {
+        <div class="product-add__error">
           Price is required and must be a positive number.
         </div>
+        }
       </div>
 
       <div class="product-add__form-group">
         <label for="stock" class="product-add__label">Stock:</label>
         <input id="stock" type="number" formControlName="stock" class="product-add__input" />
-        <div
-          *ngIf="productForm.get('stock')?.invalid && (productForm.get('stock')?.dirty || productForm.get('stock')?.touched)"
-          class="product-add__error">
+        @if (productForm.get('stock')?.invalid && (productForm.get('stock')?.dirty ||
+        productForm.get('stock')?.touched)) {
+        <div class="product-add__error">
           Stock is required and must be a positive number.
         </div>
+        }
       </div>
 
       <div class="product-add__form-group">
         <label for="category" class="product-add__label">Category:</label>
         <select id="category" formControlName="category" class="product-add__select">
           <option [ngValue]="null" disabled>Select a category</option>
-          <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+          @for (category of categories; track category.id) {
+          <option [ngValue]="category">{{ category.name }}</option>
+          }
         </select>
-        <div
-          *ngIf="productForm.get('category')?.invalid && (productForm.get('category')?.dirty || productForm.get('category')?.touched)"
-          class="product-add__error">
+        @if (productForm.get('category')?.invalid && (productForm.get('category')?.dirty ||
+        productForm.get('category')?.touched)) {
+        <div class="product-add__error">
           Category is required.
         </div>
+        }
       </div>
 
       <div class="product-add__actions">

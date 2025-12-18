@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Http } from '../../../core/services/http/http.service';
 import { Product } from '../../../Models/product';
 import { Page } from '../../../Models/page';
@@ -9,6 +9,8 @@ import { Page } from '../../../Models/page';
 })
 export class ProductsService {
   url: string = 'products';
+
+  private totalProducts: number = 0;
 
   constructor(private http: Http) { }
 
@@ -24,11 +26,15 @@ export class ProductsService {
     return this.http.create<Product>(this.url, prod);
   }
 
-  upate(prod: Product): Observable<Product> {
+  update(prod: Product): Observable<Product> {
     return this.http.update<Product>(`${this.url}/${prod.id}`, prod);
   }
 
   delete(id: number): Observable<void> {
     return this.http.deleteById<void>(`${this.url}/${id}`);
+  }
+
+  getTotalProducts(): number {
+    return this.totalProducts;
   }
 }

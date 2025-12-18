@@ -11,6 +11,4 @@ import { AuthService } from "../../service/auth/auth";
 })
 export class App {
   protected readonly title = signal('vetandgo_amd');
-  private readonly router = inject(Router);
-  private readonly auth = inject(AuthService);
 }

@@ -30,7 +30,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
             // Error 500: Error del servidor
             if (error.status === 500) {
-                console.error('Error del servidor:', error);
+                console.error('Detalles del error 500:', error.error || 'No hay cuerpo de error');
                 alert('Error del servidor. Por favor, intenta más tarde.');
             }
 

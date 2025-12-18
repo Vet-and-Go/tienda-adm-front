@@ -6,7 +6,7 @@ import { Product } from '../../../Models/product';
 import { CategoriesService } from '../../service/categories/categories';
 import { Category } from '../../../Models/category';
 import { CommonModule } from '@angular/common';
-import { filter, switchMap, tap } from 'rxjs';
+import { filter, forkJoin, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-product-edit',
@@ -24,7 +24,7 @@ export class ProductEdit implements OnInit {
 
   categories: Category[] = [];
   productId!: number;
-  categorieName!: String;
+  categoryName: string = 'Category';
 
   productForm = this.formBuilder.group({
     id: [null as number | null],
@@ -41,22 +41,27 @@ export class ProductEdit implements OnInit {
         filter((params) => params.has('id')),
         switchMap((params) => {
           this.productId = Number(params.get('id'));
-          return this.categoriesService.getAll().pipe(
-            tap((categories) => {
-              this.categories = categories;
-            }),
-            switchMap(() => this.productService.getById(this.productId!))
-          );
+          console.log('Cargando datos para producto ID:', this.productId);
+
+          // Cargamos categorías y producto en paralelo para mayor robustez
+          return forkJoin({
+            categories: this.categoriesService.getAll(),
+            product: this.productService.getById(this.productId!)
+          });
         })
       )
       .subscribe({
-        next: (product) => {
-          const categoryObj = this.categories.find(cat => {
-            const productCatId = typeof product.category === 'object' && product.category
-              ? (product.category as Category).id
-              : product.category;
-            return cat.id === productCatId;
-          }) || null;
+        next: ({ categories, product }) => {
+          console.log('Categorías cargadas:', categories.length);
+          console.log('Producto cargado:', product);
+
+          this.categories = categories;
+
+          const productCatId = typeof product.category === 'object' && product.category
+            ? (product.category as Category).id
+            : product.category;
+
+          const categoryObj = this.categories.find(cat => cat.id === productCatId) || null;
 
           this.productForm.patchValue({
             id: product.id,
@@ -67,23 +72,14 @@ export class ProductEdit implements OnInit {
             category: categoryObj,
           });
         },
-        error: (err) => {
-          console.error('Error loading product:', err);
-          alert('Error loading product');
+        error: (err: any) => {
+          console.error('Error FATAL en la carga:', err);
+          if (err.status === 500) {
+            console.error('El servidor falló al procesar la petición. Revisa los logs de Java.');
+          }
+          alert('Error al cargar los datos del producto');
         },
       });
-  }
-
-  loadCategories() {
-    this.categoriesService.getAll().subscribe({
-      next: (data) => {
-        this.categories = data;
-      },
-      error: (err) => {
-        console.error('Error loading categories:', err);
-        alert('Error loading categories');
-      },
-    });
   }
 
   saveProduct() {
@@ -100,18 +96,18 @@ export class ProductEdit implements OnInit {
         stock: formValue.stock!,
         category: categoryId!,
       };
-      this.productService.upate(updatedProduct).subscribe({
+      this.productService.update(updatedProduct).subscribe({
         next: () => {
-          alert('Product updated successfully!');
+          alert('Producto actualizado con éxito');
           this.router.navigate(['/admin/products']);
         },
-        error: (err) => {
-          console.error('Error updating product:', err);
-          alert('Error updating product');
+        error: (err: any) => {
+          console.error('Error al actualizar:', err);
+          alert('Error al actualizar el producto');
         },
       });
     } else {
-      alert('Please fill all required fields correctly.');
+      alert('Por favor, rellena todos los campos correctamente.');
     }
   }
 

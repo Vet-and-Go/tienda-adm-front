@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Http } from '../../../core/services/http/http.service';
 import { Category } from '../../../Models/category';
 
@@ -9,8 +9,15 @@ export class CategoriesService {
 
   constructor(private http: Http) { }
 
+  private totalCategories: number = 0;
+
   getAll(): Observable<Category[]> {
-    return this.http.getAll<Category>(this.url);
+    return this.http.getAll<Category>(this.url).pipe(
+      map(categories => {
+        this.totalCategories = categories.length;
+        return categories;
+      })
+    );
   }
 
   getById(id: number): Observable<Category> {
@@ -27,5 +34,9 @@ export class CategoriesService {
 
   delete(id: number): Observable<void> {
     return this.http.deleteById<void>(`${this.url}/${id}`);
+  }
+
+  getTotalCategories(): number {
+    return this.totalCategories;
   }
 }
