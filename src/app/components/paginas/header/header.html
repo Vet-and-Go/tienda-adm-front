@@ -1,1 +1,36 @@
-<p>header works!</p>
+<header class="header">
+  <div class="header__container">
+    <a routerLink="/admin"><img src="/img/logo.png" alt="VetandGo ADM" class="header__logo"></a>
+    <div class="header__title">
+      <a routerLink="/admin">
+        <h1>VetandGo ADM</h1>
+      </a>
+    </div>
+    @if (router.url !== '/admin/login') {
+    <nav class="header__nav nav">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a routerLink="/admin" class="nav__link">
+            Inicio
+          </a>
+        </li>
+        <li class="nav__item">
+          <a routerLink="/admin/products" class="nav__link">
+            Products
+          </a>
+        </li>
+        <li class="nav__item">
+          <a routerLink="/admin/categories" class="nav__link">
+            Categories
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header__user">
+      <span class="header__username">{{ auth.getUsername() }}</span>
+      <img class="header__logout" src="/img/logout.png" alt="Cerrar sesión" (click)="logout()">
+    </div>
+    }
+  </div>
+</header>

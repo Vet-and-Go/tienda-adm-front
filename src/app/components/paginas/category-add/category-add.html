@@ -1,0 +1,29 @@
+<div class="category-add">
+  <div class="category-add__container">
+    <div class="category-add__header">
+      <h1 class="category-add__title">Nueva Categoría</h1>
+    </div>
+
+    <form class="category-add__form" (ngSubmit)="save()">
+      <div class="category-add__field">
+        <label for="name" class="category-add__label">Nombre</label>
+        <input type="text" id="name" name="name" class="category-add__input" [(ngModel)]="category.name" required />
+      </div>
+
+      <div class="category-add__field">
+        <label for="description" class="category-add__label">Descripción</label>
+        <textarea id="description" name="description" class="category-add__textarea" [(ngModel)]="category.description"
+          rows="4" required></textarea>
+      </div>
+
+      <div class="category-add__actions">
+        <button type="button" class="boton boton--funcion-normal boton--importancia-secundaria" (click)="goBack()">
+          Cancelar
+        </button>
+        <button type="submit" class="boton boton--funcion-alternativa boton--importancia-primaria">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.productos {
+  --productos-padding: var(--mlt-sys-padding-10);
+  --productos-container-max-width: var(--mlt-sys-width-16);
+  --productos-title-font-size: var(--mlt-sys-font-size-8);
+  --productos-title-margin-bottom: var(--mlt-sys-margin-7);
+  --productos-title-color: var(--mlt-sys-color-white-9);
+  --productos-text-font-size: var(--mlt-sys-font-size-4);
+  --productos-text-color: var(--mlt-sys-color-white-5);
+  --productos-font-family-title: var(--mlt-sys-font-family-title);
+  --productos-font-family-text: var(--mlt-sys-font-family-text);
+
+  padding: var(--productos-padding);
+
+  &__container {
+    max-width: var(--productos-container-max-width);
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: var(--productos-title-font-size);
+    margin-bottom: var(--productos-title-margin-bottom);
+    color: var(--productos-title-color);
+    font-family: var(--productos-font-family-title);
+  }
+
+  p {
+    font-size: var(--productos-text-font-size);
+    color: var(--productos-text-color);
+    font-family: var(--productos-font-family-text);
+  }
+}

@@ -1,0 +1,73 @@
+<div class="inicio">
+  <div class="inicio__container">
+
+    <!-- Header / Welcome -->
+    <div class="inicio__header">
+      <div class="inicio__welcome">
+        <h1>{{ getGreeting() }}, {{ auth.getUsername() }}</h1>
+        <p>Panel de Administración VetAndGo</p>
+      </div>
+      <div class="inicio__info">
+        <span>{{ auth.isAdmin() ? 'Administrador' : 'Usuario' }}</span>
+        <span>{{ currentTime }}</span>
+      </div>
+    </div>
+
+    <div class="inicio__grid">
+
+      <!-- Stats -->
+      <div class="inicio__card">
+        <h2 class="inicio__card-title">Estadísticas</h2>
+        <div class="inicio__stats-list">
+
+          <div class="inicio__stat-item">
+            <div class="inicio__stat-icon">📂</div>
+            <div class="inicio__stat-info">
+              <label>Categorías</label>
+              <strong>{{ loading ? '...' : stats.totalCategories }}</strong>
+            </div>
+          </div>
+
+          <div class="inicio__stat-item">
+            <div class="inicio__stat-icon">📦</div>
+            <div class="inicio__stat-info">
+              <label>Productos</label>
+              <strong>{{ loading ? '...' : stats.totalProducts }}</strong>
+            </div>
+          </div>
+
+          <div class="inicio__stat-item">
+            <div class="inicio__stat-icon">👥</div>
+            <div class="inicio__stat-info">
+              <label>Usuarios</label>
+              <strong>{{ loading ? '...' : stats.totalUsers }}</strong>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="inicio__card">
+        <h2 class="inicio__card-title">Acciones Rápidas</h2>
+        <div class="inicio__actions-list">
+
+
+          <button class="inicio__action-btn" routerLink="/admin/products">
+            <span>📦</span>
+            <span>Gestionar Productos</span>
+          </button>
+
+          <button class="inicio__action-btn" routerLink="/admin/categories">
+            <span>📂</span>
+            <span>Gestionar Categorías</span>
+          </button>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>

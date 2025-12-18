@@ -1,0 +1,156 @@
+.categorias {
+  --categorias-padding: var(--mlt-sys-padding-10);
+  --categorias-container-max-width: var(--mlt-sys-width-16);
+  --categorias-header-margin-bottom: var(--mlt-sys-margin-9);
+  --categorias-title-font-size: var(--mlt-sys-font-size-8);
+  --categorias-title-color: var(--mlt-sys-color-white-9);
+  --categorias-table-background: var(--mlt-sys-color-white-1);
+  --categorias-table-border-radius: var(--mlt-sys-border-radius-5);
+  --categorias-table-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --categorias-table-head-background: var(--mlt-sys-color-alternative-5);
+  --categorias-table-head-color: var(--mlt-sys-color-white-1);
+  --categorias-row-border-color: var(--mlt-sys-color-white-2);
+  --categorias-cell-color: var(--mlt-sys-color-white-9);
+  --categorias-name-hover-color: var(--mlt-sys-color-alternative-5);
+  --categorias-empty-color: var(--mlt-sys-color-white-5);
+  --categorias-font-family-title: var(--mlt-sys-font-family-title);
+  --categorias-font-family-text: var(--mlt-sys-font-family-text);
+
+  padding: var(--categorias-padding);
+
+  &__container {
+    max-width: var(--categorias-container-max-width);
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: var(--categorias-header-margin-bottom);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: var(--categorias-title-font-size);
+      margin: 0;
+      color: var(--categorias-title-color);
+      font-family: var(--categorias-font-family-title);
+    }
+  }
+
+  &__table {
+    background: var(--categorias-table-background);
+    border-radius: var(--categorias-table-border-radius);
+    box-shadow: var(--categorias-table-shadow);
+    overflow: hidden;
+  }
+
+  &__table-wrapper {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__table-head {
+    background: var(--categorias-table-head-background);
+    color: var(--categorias-table-head-color);
+    font-family: var(--categorias-font-family-text);
+  }
+
+  &__table-header {
+    --header-padding: var(--mlt-sys-padding-7);
+    --header-font-size: var(--mlt-sys-font-size-2);
+    --header-font-weight: 600;
+
+    padding: var(--header-padding);
+    text-align: left;
+    font-weight: var(--header-font-weight);
+    font-size: var(--header-font-size);
+    text-transform: uppercase;
+
+    &--id {
+      width: 80px;
+    }
+
+    &--name {
+      width: 200px;
+
+    }
+  }
+
+  &__table-header--actions {
+    --header-actions-font-size: var(--mlt-sys-font-size-2);
+    --header-actions-width: 100px;
+
+    text-align: center;
+    font-size: var(--header-actions-font-size);
+    text-transform: uppercase;
+    width: var(--header-actions-width);
+  }
+
+  &__row {
+    border-bottom: 1px solid var(--categorias-row-border-color);
+    transition: background-color 0.2s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__cell {
+    --cell-padding: var(--mlt-sys-padding-7);
+    --cell-font-size: var(--mlt-sys-font-size-2);
+
+    padding: var(--cell-padding);
+    font-size: var(--cell-font-size);
+    color: var(--categorias-cell-color);
+    font-family: var(--categorias-font-family-text);
+  }
+
+  &__name {
+    --name-padding: var(--mlt-sys-padding-7);
+    --name-font-size: var(--mlt-sys-font-size-2);
+    text-decoration: underline;
+
+    text-decoration: underline;
+
+    padding: var(--name-padding);
+    font-size: var(--name-font-size);
+    color: var(--categorias-cell-color);
+    cursor: pointer;
+    font-family: var(--categorias-font-family-text);
+
+    &:hover {
+      color: var(--categorias-name-hover-color);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  &__empty {
+    --empty-padding: var(--mlt-sys-padding-12) var(--mlt-sys-padding-8);
+
+    text-align: center;
+    padding: var(--empty-padding);
+    color: var(--categorias-empty-color);
+  }
+
+  &__loading {
+    --loading-padding: var(--mlt-sys-padding-12) var(--mlt-sys-padding-8);
+    --loading-color: var(--mlt-sys-color-white-6);
+    --loading-font-size: var(--mlt-sys-font-size-4);
+
+    text-align: center;
+    padding: var(--loading-padding);
+    color: var(--loading-color);
+    font-size: var(--loading-font-size);
+    font-family: var(--categorias-font-family-text);
+
+    p {
+      margin: 0;
+    }
+  }
+}
