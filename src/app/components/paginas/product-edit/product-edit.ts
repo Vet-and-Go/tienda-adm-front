@@ -6,7 +6,7 @@ import { Product } from '../../../Models/product';
 import { CategoriesService } from '../../service/categories/categories';
 import { Category } from '../../../Models/category';
 import { CommonModule } from '@angular/common';
-import { filter, switchMap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-product-edit',
@@ -31,28 +31,39 @@ export class ProductEdit implements OnInit {
     description: ['', Validators.required],
     price: [0, [Validators.required, Validators.min(0)]],
     stock: [0, [Validators.required, Validators.min(0)]],
-    category: [null as number | null, Validators.required],
+    category: [null as Category | null, Validators.required],
   });
 
   ngOnInit(): void {
-    this.loadCategories();
     this.route.paramMap
       .pipe(
         filter((params) => params.has('id')),
         switchMap((params) => {
           this.productId = Number(params.get('id'));
-          return this.productService.getById(this.productId);
+          return this.categoriesService.getAll().pipe(
+            tap((categories) => {
+              this.categories = categories;
+            }),
+            switchMap(() => this.productService.getById(this.productId!))
+          );
         })
       )
       .subscribe({
         next: (product) => {
+          const categoryObj = this.categories.find(cat => {
+            const productCatId = typeof product.category === 'object' && product.category 
+              ? (product.category as Category).id 
+              : product.category;
+            return cat.id === productCatId;
+          }) || null;
+          
           this.productForm.patchValue({
             id: product.id,
             name: product.name,
             description: product.description,
             price: product.price,
             stock: product.stock,
-            category: product.category,
+            category: categoryObj,
           });
         },
         error: (err) => {
@@ -105,5 +116,9 @@ export class ProductEdit implements OnInit {
 
   cancel() {
     this.router.navigate(['/products']);
+  }
+
+  compareCat(c1: Category, c2: Category): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 }
