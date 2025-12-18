@@ -37,11 +37,11 @@
       </table>
     </div>
     <div class="productos__pagination">
-      <button (click)="previousPage()" [disabled]="pageNumber === 1" class="boton">Anterior</button>
+      <button (click)="previousPage()" [disabled]="pageNumber === 1" class="boton">◄</button>
       @for(page of pages; track $index){
         <button (click)="goToPage(page)" [class.active]="page === pageNumber" class="boton">{{ page }}</button>
       }
-      <button (click)="nextPage()" [disabled]="pageNumber === totalPages" class="boton">Siguiente</button>
+      <button (click)="nextPage()" [disabled]="pageNumber === totalPages" class="boton">►</button>
     </div>
   </div>
 </div>

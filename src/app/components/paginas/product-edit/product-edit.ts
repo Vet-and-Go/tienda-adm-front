@@ -23,7 +23,8 @@ export class ProductEdit implements OnInit {
   private readonly route = inject(ActivatedRoute);
 
   categories: Category[] = [];
-  productId: number | null = null;
+  productId!: number;
+  categorieName!: String;
 
   productForm = this.formBuilder.group({
     id: [null as number | null],
@@ -51,12 +52,12 @@ export class ProductEdit implements OnInit {
       .subscribe({
         next: (product) => {
           const categoryObj = this.categories.find(cat => {
-            const productCatId = typeof product.category === 'object' && product.category 
-              ? (product.category as Category).id 
+            const productCatId = typeof product.category === 'object' && product.category
+              ? (product.category as Category).id
               : product.category;
             return cat.id === productCatId;
           }) || null;
-          
+
           this.productForm.patchValue({
             id: product.id,
             name: product.name,
