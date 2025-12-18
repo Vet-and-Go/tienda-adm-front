@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
 import { Category } from '../../../Models/category';
@@ -9,16 +10,23 @@ import { Category } from '../../../Models/category';
   templateUrl: './categories.html',
   styleUrl: './categories.scss',
 })
-export class Categories implements OnInit {
+export class Categories implements OnInit, OnDestroy {
   private readonly categoriesService = inject(CategoriesService);
   categories: Category[] = [];
+  subscription: Subscription | null = null;
 
   ngOnInit() {
     this.load();
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   load() {
-    this.categoriesService.getAll().subscribe({
+    this.subscription = this.categoriesService.getAll().subscribe({
       next: data => {
         this.categories = data;
       }

@@ -1,4 +1,5 @@
-import { Component, OnInit, inject, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, computed } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
@@ -16,7 +17,7 @@ interface DashboardStats {
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
-export class Inicio implements OnInit {
+export class Inicio implements OnInit, OnDestroy {
   /* Services */
   readonly categories = inject(CategoriesService);
   readonly auth = inject(AuthService);
@@ -31,17 +32,28 @@ export class Inicio implements OnInit {
   };
 
   loading: boolean = true;
+  private intervalId: any;
+  private subscription: Subscription | null = null;
 
   ngOnInit() {
     this.loadDashboardData();
     this.updateTime();
-    setInterval(() => this.updateTime(), 1000);
+    this.intervalId = setInterval(() => this.updateTime(), 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   loadDashboardData() {
     this.loading = true;
 
-    this.categories.getAll().subscribe({
+    this.subscription = this.categories.getAll().subscribe({
       next: categories => {
         this.stats.totalCategories = categories.length;
         this.loading = false;

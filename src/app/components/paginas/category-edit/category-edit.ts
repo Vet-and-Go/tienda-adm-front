@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
@@ -10,18 +11,19 @@ import { Category } from '../../../Models/category';
   templateUrl: './category-edit.html',
   styleUrl: './category-edit.scss',
 })
-export class CategoryEdit implements OnInit {
+export class CategoryEdit implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly categoriesService = inject(CategoriesService);
   category: Category = { name: '', description: '' };
+  private subscription: Subscription | null = null;
 
 
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      this.categoriesService.getById(id).subscribe({
+      this.subscription = this.categoriesService.getById(id).subscribe({
         next: data => {
           this.category = data;
         },
@@ -29,6 +31,14 @@ export class CategoryEdit implements OnInit {
           this.goBack();
         }
       });
+    }
+  }
+
+
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
