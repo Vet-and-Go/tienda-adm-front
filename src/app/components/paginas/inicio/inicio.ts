@@ -6,11 +6,7 @@ import { CategoriesService } from '../../service/categories/categories';
 import { ProductsService } from '../../service/products/products';
 import { AuthService } from '../../service/auth/auth';
 
-interface DashboardStats {
-  totalCategories: number;
-  totalProducts: number;
-  totalUsers: number;
-}
+
 
 @Component({
   selector: 'app-inicio',
