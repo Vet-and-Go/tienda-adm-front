@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+
 import { Products } from './components/paginas/products/products';
 import { Categories } from './components/paginas/categories/categories';
 import { CategoryEdit } from './components/paginas/category-edit/category-edit';
@@ -9,9 +9,10 @@ import { Inicio } from './components/paginas/inicio/inicio';
 import { Login } from './components/paginas/login/login';
 import { adminGuard } from './core/guards/auth.guard';
 import { App } from './components/paginas/app/app';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', component: App },
+  { path: '', component: Inicio },
   { path: 'admin', component: Inicio, canActivate: [adminGuard] },
   { path: 'admin/products', component: Products, canActivate: [adminGuard] },
   { path: 'admin/products/add', component: ProductAdd, canActivate: [adminGuard] },

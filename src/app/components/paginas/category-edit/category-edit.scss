@@ -71,23 +71,25 @@
     gap: var(--form-gap);
   }
 
-  &__field {
-    --field-gap: var(--mlt-sys-padding-4);
-
+  &__form-group {
     display: flex;
     flex-direction: column;
-    gap: var(--field-gap);
+    gap: var(--mlt-sys-padding-4);
+  }
+
+  &__error {
+    color: var(--mlt-sys-color-red-5);
+    font-size: var(--mlt-sys-font-size-2);
+    margin-top: var(--mlt-sys-margin-2);
   }
 
   &__label {
     --label-font-size: var(--mlt-sys-font-size-3);
     --label-font-weight: 600;
-    --label-margin-bottom: var(--mlt-sys-margin-2);
 
     font-size: var(--label-font-size);
     font-weight: var(--label-font-weight);
     color: var(--category-edit-label-color);
-    margin-bottom: var(--label-margin-bottom);
     font-family: var(--category-edit-font-family-text);
   }
 
