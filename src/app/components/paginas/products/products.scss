@@ -75,7 +75,7 @@
       width: 200px;
     }
   }
-  
+
   &__table-header--actions {
     --header-actions-font-size: var(--mlt-sys-font-size-2);
     --header-actions-width: 100px;
@@ -84,6 +84,7 @@
     font-size: var(--header-actions-font-size);
     text-transform: uppercase;
     width: var(--header-actions-width);
+    font-family: var(--productos-font-family-text);
   }
 
   &__row {
@@ -114,7 +115,7 @@
     color: var(--productos-cell-color);
     cursor: pointer;
     font-family: var(--productos-font-family-text);
-    
+
     &:hover {
       color: var(--productos-name-hover-color);
       text-decoration: underline;
@@ -161,7 +162,7 @@
     .boton {
       min-width: 40px;
       padding: var(--mlt-sys-padding-2) var(--mlt-sys-padding-4);
-      
+
       &.active {
         background-color: var(--mlt-sys-color-alternative-5);
         color: var(--mlt-sys-color-white-1);

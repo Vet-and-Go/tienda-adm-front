@@ -1,6 +1,6 @@
 .category-edit {
-  
-  --category-edit-padding: var(--mlt-sys-padding-10);
+
+  --caegory-edit-padding: var(--mlt-sys-padding-10);
   --category-edit-min-height: calc(100vh - var(--mlt-sys-height-7));
   --category-edit-container-max-width: var(--mlt-sys-width-14);
   --category-edit-container-background: var(--mlt-sys-color-white-1);
@@ -78,9 +78,10 @@
   }
 
   &__error {
-    color: var(--mlt-sys-color-red-5);
+    color: var(--mlt-sys-color-red-2);
     font-size: var(--mlt-sys-font-size-2);
     margin-top: var(--mlt-sys-margin-2);
+    font-family: var(--category-edit-font-family-text);
   }
 
   &__label {
@@ -104,7 +105,7 @@
     border: var(--input-border-width) solid var(--category-edit-input-border-color);
     border-radius: var(--input-border-radius);
     font-size: var(--input-font-size);
-    font-family: inherit;
+    font-family: var(--category-edit-font-family-text);
     transition: all 0.2s;
     background-color: var(--category-edit-input-background);
 
