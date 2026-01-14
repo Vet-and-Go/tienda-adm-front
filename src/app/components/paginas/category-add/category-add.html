@@ -1,27 +1,36 @@
 <div class="category-add">
   <div class="category-add__container">
     <div class="category-add__header">
-      <h1 class="category-add__title">Nueva Categoría</h1>
+      <h1>Add New Category</h1>
     </div>
 
-    <form class="category-add__form" (ngSubmit)="save()">
-      <div class="category-add__field">
-        <label for="name" class="category-add__label">Nombre</label>
-        <input type="text" id="name" name="name" class="category-add__input" [(ngModel)]="category.name" required />
+    <form [formGroup]="categoryForm" (ngSubmit)="save()" class="category-add__form">
+      <div class="category-add__form-group">
+        <label for="name" class="category-add__label">Name:</label>
+        <input id="name" type="text" formControlName="name" class="category-add__input" />
+        @if (categoryForm.get('name')?.invalid && (categoryForm.get('name')?.dirty || categoryForm.get('name')?.touched)) {
+        <div class="category-add__error">
+          Name is required.
+        </div>
+        }
       </div>
 
-      <div class="category-add__field">
-        <label for="description" class="category-add__label">Descripción</label>
-        <textarea id="description" name="description" class="category-add__textarea" [(ngModel)]="category.description"
-          rows="4" required></textarea>
+      <div class="category-add__form-group">
+        <label for="description" class="category-add__label">Description:</label>
+        <textarea id="description" formControlName="description" class="category-add__textarea"></textarea>
+        @if (categoryForm.get('description')?.invalid && (categoryForm.get('description')?.dirty || categoryForm.get('description')?.touched)) {
+        <div class="category-add__error">
+          Description is required.
+        </div>
+        }
       </div>
 
       <div class="category-add__actions">
-        <button type="button" class="boton boton--funcion-normal boton--importancia-secundaria" (click)="goBack()">
-          Cancelar
+        <button type="submit" class="boton boton--importancia-primaria" [disabled]="!categoryForm.valid">
+          Save Category
         </button>
-        <button type="submit" class="boton boton--funcion-alternativa boton--importancia-primaria">
-          Guardar
+        <button type="button" class="boton boton--funcion-alternativa" (click)="cancel()">
+          Cancel
         </button>
       </div>
     </form>

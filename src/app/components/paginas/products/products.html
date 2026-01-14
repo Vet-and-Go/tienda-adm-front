@@ -39,9 +39,7 @@
     </div>
     <div class="productos__pagination">
       <button (click)="previousPage()" [disabled]="pageNumber === 1" class="boton">◄</button>
-      @for(page of pages; track $index){
-      <button (click)="goToPage(page)" [class.active]="page === pageNumber" class="boton">{{ page }}</button>
-      }
+      <span class="productos__pagination-index">{{ pageNumber }}/{{ totalPages }}</span>
       <button (click)="nextPage()" [disabled]="pageNumber === totalPages" class="boton">►</button>
     </div>
   </div>

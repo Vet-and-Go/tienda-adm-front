@@ -157,22 +157,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--mlt-sys-margin-2);
+    gap: var(--mlt-sys-margin-4);
 
     .boton {
       min-width: 40px;
       padding: var(--mlt-sys-padding-2) var(--mlt-sys-padding-4);
-
-      &.active {
-        background-color: var(--mlt-sys-color-alternative-5);
-        color: var(--mlt-sys-color-white-1);
-        border-color: var(--mlt-sys-color-alternative-5);
-      }
 
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
       }
     }
+  }
+
+  &__pagination-index {
+    font-family: var(--productos-font-family-text);
+    font-size: var(--mlt-sys-font-size-3);
+    color: var(--productos-cell-color);
+    min-width: 60px;
+    text-align: center;
   }
 }
