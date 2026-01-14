@@ -69,10 +69,16 @@
 
     &--id {
       width: 80px;
+      text-align: center;
     }
 
     &--name {
       width: 200px;
+    }
+
+    &--stock {
+      width: 80px;
+      text-align: center;
     }
   }
 
@@ -104,6 +110,7 @@
     font-size: var(--cell-font-size);
     color: var(--productos-cell-color);
     font-family: var(--productos-font-family-text);
+    text-align: center;
   }
 
   &__name {

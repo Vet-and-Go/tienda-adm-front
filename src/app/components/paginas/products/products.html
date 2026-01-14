@@ -12,6 +12,7 @@
           <tr class="productos__row">
             <th class="productos__table-header productos__table-header--id">ID</th>
             <th class="productos__table-header productos__table-header--name">Nombre</th>
+            <th class="productos__table-header productos__table-header--stock">Stock</th>
             <th class="productos__table-header--actions">Acciones</th>
           </tr>
         </thead>
@@ -20,6 +21,7 @@
           <tr class="productos__row">
             <td class="productos__cell">{{ product.id }}</td>
             <td class="productos__name" routerLink="/admin/products/edit/{{ product.id }}"> {{ product.name }}</td>
+            <td class="productos__cell">{{ product.stock }}</td>
             <td class="productos__actions">
               <button class="boton boton--icon-only" (click)="remove(product.id!)"><img src="/img/trash.png"
                   alt="Eliminar">
@@ -29,7 +31,7 @@
           }
           @empty {
           <tr class="productos__row">
-            <td colspan="4" class="productos__empty">
+            <td colspan="5" class="productos__empty">
               No hay productos disponibles
             </td>
           </tr>
