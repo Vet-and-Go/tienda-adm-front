@@ -1,56 +1,76 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../../service/categories/categories';
 import { Category } from '../../../Models/category';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category-edit',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './category-edit.html',
   styleUrl: './category-edit.scss',
 })
-export class CategoryEdit implements OnInit, OnDestroy {
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
+export class CategoryEdit implements OnInit {
+  private readonly formBuilder = inject(FormBuilder);
   private readonly categoriesService = inject(CategoriesService);
-  category: Category = { name: '', description: '' };
-  private subscription: Subscription | null = null;
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+  categoryId!: number;
+
+  categoryForm = this.formBuilder.group({
+    id: [null as number | null],
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+  });
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.subscription = this.categoriesService.getById(id).subscribe({
-        next: data => {
-          this.category = data;
+      this.categoryId = Number(id);
+      this.categoriesService.getById(this.categoryId).subscribe({
+        next: (data) => {
+          this.categoryForm.patchValue({
+            id: data.id,
+            name: data.name,
+            description: data.description,
+          });
         },
-        error: err => {
-          console.error('Error cargando categoría:', err);
-          alert('Error al cargar la categoría');
-          this.goBack();
-        }
+        error: (err: any) => {
+          console.error('Error loading category:', err);
+          alert('Error loading category');
+          this.cancel();
+        },
       });
     }
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+  save() {
+    if (this.categoryForm.valid && this.categoryId) {
+      const formValue = this.categoryForm.value;
+      const updatedCategory: Category = {
+        id: this.categoryId,
+        name: formValue.name!,
+        description: formValue.description!,
+      };
+      this.categoriesService.update(updatedCategory).subscribe({
+        next: () => {
+          alert('Category updated successfully');
+          this.router.navigate(['/admin/categories']);
+        },
+        error: (err: any) => {
+          console.error('Error updating category:', err);
+          alert('Error updating category');
+        },
+      });
+    } else {
+      alert('Please fill all required fields.');
     }
   }
 
-  save() {
-    this.categoriesService.update(this.category).subscribe({
-      next: () => this.goBack(),
-      error: err => {
-        console.error('Error actualizando categoría:', err);
-        alert('Error al actualizar la categoría');
-      }
-    });
-  }
-
-  goBack() {
+  cancel() {
     this.router.navigate(['/admin/categories']);
   }
 }

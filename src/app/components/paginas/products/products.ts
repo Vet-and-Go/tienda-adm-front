@@ -16,7 +16,6 @@ export class Products implements OnInit {
   pageSize: number = 5;
   totalPages: number = 0;
   totalElements: number = 0;
-  pages: number[] = [];
 
   ngOnInit() {
     this.load();
@@ -28,7 +27,6 @@ export class Products implements OnInit {
         this.products = data.data;
         this.totalPages = data.totalPages;
         this.totalElements = data.totalElements;
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
       },
       error: err => {
         console.error('Error while loading products:', err);
@@ -45,15 +43,10 @@ export class Products implements OnInit {
   }
 
   previousPage() {
-    if (this.pageNumber > 1) { // Changed from 0 to 1
+    if (this.pageNumber > 1) {
       this.pageNumber--;
       this.load();
     }
-  }
-
-  goToPage(page: number) {
-    this.pageNumber = page;
-    this.load();
   }
 
   remove(id: number) {

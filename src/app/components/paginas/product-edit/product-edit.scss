@@ -71,9 +71,10 @@
   }
 
   &__error {
-    color: var(--product-edit-error-color);
+    color: var(--mlt-sys-color-red-2);
     font-size: var(--mlt-sys-font-size-1);
     margin-top: var(--mlt-sys-margin-1);
+    font-family: var(--product-edit-font-family-text);
   }
 
   &__actions {

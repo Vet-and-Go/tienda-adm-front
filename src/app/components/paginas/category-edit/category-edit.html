@@ -1,25 +1,38 @@
 <div class="category-edit">
   <div class="category-edit__container">
     <div class="category-edit__header">
-      <h1 class="category-edit__title">Editar Categoría</h1>
+      <h1>Edit Category</h1>
     </div>
 
-    <form class="category-edit__form" (ngSubmit)="save()">
-      <div class="category-edit__field">
-        <label for="name" class="category-edit__label">Nombre</label>
-        <input type="text" id="name" name="name" class="category-edit__input" [(ngModel)]="category.name" required />
+    <form [formGroup]="categoryForm" (ngSubmit)="save()" class="category-edit__form">
+      <div class="category-edit__form-group">
+        <label for="name" class="category-edit__label">Name:</label>
+        <input id="name" type="text" formControlName="name" class="category-edit__input" />
+        @if (categoryForm.get('name')?.invalid && (categoryForm.get('name')?.dirty || categoryForm.get('name')?.touched)) {
+        <div class="category-edit__error">
+          Name is required.
+        </div>
+        }
       </div>
 
-      <div class="category-edit__field">
-        <label for="description" class="category-edit__label">Descripción</label>
-        <textarea id="description" name="description" class="category-edit__textarea" [(ngModel)]="category.description"
-          rows="4" required></textarea>
+      <div class="category-edit__form-group">
+        <label for="description" class="category-edit__label">Description:</label>
+        <textarea id="description" formControlName="description" class="category-edit__textarea"></textarea>
+        @if (categoryForm.get('description')?.invalid && (categoryForm.get('description')?.dirty ||
+        categoryForm.get('description')?.touched)) {
+        <div class="category-edit__error">
+          Description is required.
+        </div>
+        }
       </div>
 
       <div class="category-edit__actions">
-        <button type="button" class="boton boton--funcion-normal boton--importancia-secundaria"
-          (click)="goBack()">Cancelar</button>
-        <button type="submit" class="boton boton--funcion-alternativa boton--importancia-primaria">Guardar</button>
+        <button type="submit" class="boton boton--importancia-primaria" [disabled]="!categoryForm.valid">
+          Save Changes
+        </button>
+        <button type="button" class="boton boton--funcion-alternativa" (click)="cancel()">
+          Cancel
+        </button>
       </div>
     </form>
   </div>
